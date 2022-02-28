@@ -17,7 +17,7 @@ public class Main {
   public static void main(String[] args) throws InterruptedException {
     while (true) {
       try {
-        logger.info("logging at INFO");   // enabled by the filter's threshold level
+        logger.info("logging at INFO");   // enabled by the default threshold level
         logger.debug("logging at DEBUG"); // enabled when on diagnostic alert
         logger.trace("logging at TRACE"); // can never be enabled, logback.xml takes priority
         LocalTime now = LocalTime.now();
