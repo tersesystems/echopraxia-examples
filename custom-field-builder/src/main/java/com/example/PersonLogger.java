@@ -8,9 +8,10 @@ import org.jetbrains.annotations.NotNull;
 
 // Leverages custom field builder
 public class PersonLogger extends AbstractLoggerSupport<PersonLogger, PersonFieldBuilder>
-  implements DefaultLoggerMethods<PersonFieldBuilder> {
+    implements DefaultLoggerMethods<PersonFieldBuilder> {
 
-  protected PersonLogger(@NotNull CoreLogger core, @NotNull PersonFieldBuilder fieldBuilder, Class<?> selfType) {
+  protected PersonLogger(
+      @NotNull CoreLogger core, @NotNull PersonFieldBuilder fieldBuilder, Class<?> selfType) {
     super(core, fieldBuilder, selfType);
   }
 
@@ -21,6 +22,7 @@ public class PersonLogger extends AbstractLoggerSupport<PersonLogger, PersonFiel
 
   @Override
   protected @NotNull PersonLogger neverLogger() {
-    return new PersonLogger(core.withCondition(Condition.never()), fieldBuilder(), PersonLogger.class);
+    return new PersonLogger(
+        core.withCondition(Condition.never()), fieldBuilder(), PersonLogger.class);
   }
 }

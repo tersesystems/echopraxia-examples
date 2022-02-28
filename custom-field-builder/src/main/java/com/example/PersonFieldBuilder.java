@@ -1,8 +1,8 @@
 package com.example;
 
-import com.tersesystems.echopraxia.Field;
-
 import static com.tersesystems.echopraxia.Field.Value;
+
+import com.tersesystems.echopraxia.Field;
 
 /**
  * A custom field builder. This is useful for structured logging because typically you want to

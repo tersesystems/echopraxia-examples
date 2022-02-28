@@ -12,5 +12,4 @@ public class Main {
 
     logger.info("Hi there {}", fb -> fb.only(fb.person("person", abe)));
   }
-
 }
