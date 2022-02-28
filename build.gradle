@@ -1,0 +1,45 @@
+plugins {
+    id 'com.diffplug.spotless'  version '6.1.0'
+}
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+}
+
+subprojects { subproj ->
+    apply plugin: 'application'
+    apply plugin: 'com.diffplug.spotless'
+
+    repositories {
+        mavenLocal()
+        mavenCentral()
+    }
+
+    spotless {
+        java {
+            googleJavaFormat()
+        }
+    }
+
+    java {
+        toolchain {
+            languageVersion = JavaLanguageVersion.of(8)
+        }
+    }
+
+    dependencies {
+        // Use JUnit Jupiter for testing.
+        testImplementation 'org.junit.jupiter:junit-jupiter:5.8.2'
+        testImplementation 'org.assertj:assertj-core:3.21.0'
+        testImplementation 'org.awaitility:awaitility:4.1.1'
+    }
+
+    tasks.named('test') {
+        // Use JUnit Platform for unit tests.
+        useJUnitPlatform()
+    }
+
+}
+
+

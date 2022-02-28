@@ -1,0 +1,18 @@
+<configuration>
+
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%date{H:mm:ss.SSS} %highlight(%-5level) [%thread]: %message%n%ex</pattern>
+        </encoder>
+    </appender>
+
+    <!--
+      Turn on DEBUG for your application packages so that you can rely solely on conditions for filtering.
+    -->
+    <logger name="com.example" level="DEBUG"/>
+
+    <root level="INFO">
+        <appender-ref ref="CONSOLE"/>
+    </root>
+
+</configuration>
