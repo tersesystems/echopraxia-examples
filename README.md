@@ -26,3 +26,8 @@ Demonstrates a [filter](https://github.com/tersesystems/echopraxia#filters) to a
 
 Demonstrates use of a custom field builder and fancy loggers.  See [README](custom-field-builder/README.md).
 
+## Feature Flags
+
+Demonstrates use of feature flags as a backend for conditions.  See [README](configcat/README.md).
+
+
