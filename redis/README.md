@@ -6,19 +6,48 @@ Solution: Use Redis and set logging levels from there.
 
 ## Implementation
 
-The implementation uses a filter, which connects to Redis to query for the level.
+The implementation uses a filter, which connects to Redis to query for the level and caches the result using [Caffeine](https://github.com/ben-manes/caffeine).
 
 ```java
 public class JedisFilter implements CoreLoggerFilter, AutoCloseable {
 
-  private final UnifiedJedis client;
+  private final JedisPooled client;
   private final Level defaultThreshold = Level.INFO;
+  private final LoadingCache<String, Level> cache;
 
   public JedisFilter() {
-
     HostAndPort config = new HostAndPort(Protocol.DEFAULT_HOST, 6379);
     PooledConnectionProvider provider = new PooledConnectionProvider(config);
-    client = new UnifiedJedis(provider);
+    client = new JedisPooled(provider);
+
+    // Set up cache and refresh
+    cache = Caffeine.newBuilder()
+      .maximumSize(10_000)
+      .refreshAfterWrite(Duration.ofSeconds(10)) // async call to redis if > 10 seconds old
+      .build(this::queryRedis);
+
+    // Load up a starting set of keys from cache
+    Set<String> keys = getKeysFromRedis();
+    cache.getAll(keys);
+  }
+
+  private Set<String> getKeysFromRedis() {
+    ScanParams scanParams = new ScanParams().count(1000);
+    Set<String> allKeys = new HashSet<>();
+    String cur = ScanParams.SCAN_POINTER_START;
+    do {
+      ScanResult<String> scanResult = client.scan(cur, scanParams);
+      allKeys.addAll(scanResult.getResult());
+      cur = scanResult.getCursor();
+      if (allKeys.size() >= 1000) break;
+    } while (!cur.equals(ScanParams.SCAN_POINTER_START));
+
+    return allKeys;
+  }
+
+  private Level queryRedis(String key) {
+    String result = client.get(key);
+    return result == null ? defaultThreshold : Level.valueOf(result);
   }
 
   public void close() {
@@ -40,13 +69,8 @@ public class JedisFilter implements CoreLoggerFilter, AutoCloseable {
 
     @Override
     public boolean test(Level level, LoggingContext context) {
-      final String levelString = client.get(name);
-      if (levelString != null) {
-        final Level threshold = Level.valueOf(levelString);
-        return level.isGreaterOrEqual(threshold);
-      } else {
-        return level.isGreaterOrEqual(defaultThreshold);
-      }
+      final Level threshold = cache.get(name);
+      return level.isGreaterOrEqual(threshold);
     }
   }
 }
