@@ -6,6 +6,10 @@ This project shows things you can do with [Echopraxia](https://github.com/terses
 
 Demonstrates [AsyncLogger](https://github.com/tersesystems/echopraxia#asynchronous-logging) with correct caller info.  See [README](async/README.md).
 
+## Redis
+
+Demonstrates dynamic control of logging through Redis.  See [README](redis/README.md).
+
 ## Condition Store
 
 Demonstrates dynamic control of logging through [script conditions](https://github.com/tersesystems/echopraxia#dynamic-conditions-with-scripts) kept in an [SQLite database](sqlite.org/) as a backing store.  See [README](conditionstore/README.md).
