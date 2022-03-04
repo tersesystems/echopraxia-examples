@@ -15,4 +15,7 @@ dependencies {
 
     // https://mvnrepository.com/artifact/redis.clients/jedis
     implementation 'redis.clients:jedis:4.1.1'
+
+    // https://mvnrepository.com/artifact/com.github.ben-manes.caffeine/caffeine
+    implementation 'com.github.ben-manes.caffeine:caffeine:2.9.3'
 }

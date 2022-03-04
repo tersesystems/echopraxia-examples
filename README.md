@@ -16,7 +16,7 @@ Scenario: you want to change logger levels dynamically, without restarting the a
 
 Solution: Use conditions and connect to a key/value backend like Redis to evaluate levels. 
 
-Demonstrates dynamic control of logging through Redis. You can also use [Caffeine](https://github.com/ben-manes/caffeine) to cache log levels locally. See [README](redis/README.md).
+Demonstrates dynamic control of logging through Redis and [Caffeine](https://github.com/ben-manes/caffeine). See [README](redis/README.md).
 
 ## Condition Store
 
