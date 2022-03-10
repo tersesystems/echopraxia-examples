@@ -1,13 +1,8 @@
 package com.example;
 
-import static com.jayway.jsonpath.Criteria.where;
-import static com.jayway.jsonpath.Filter.filter;
-
-import com.jayway.jsonpath.Filter;
 import com.tersesystems.echopraxia.Condition;
 
 import java.util.List;
-import java.util.Map;
 
 public class Main {
 
@@ -19,12 +14,23 @@ public class Main {
     abe.setFather(new Person("Bert", 35, "keyboards"));
     abe.setMother(new Person("Candace", 30, "iceskating"));
 
-    Condition abeCondition =
-        (level, context) -> {
-          // Language Injections in IntelliJ IDEA and add LoggingContext
-          Number age = context.find(Number.class, "$.person.mother.age");
-          return age.equals(30);
-        };
-    logger.info(abeCondition, "Hi there {}", fb -> fb.only(fb.person("person", abe)));
+    Condition ageCondition = (level, context) -> context
+      .findNumber("$.person.mother.age")
+      .filter(age -> age.intValue() > 30)
+      .isPresent();
+
+    logger.info(ageCondition, "Prints if person's mother age is more than 30",
+      fb -> fb.only(fb.person("person", abe)));
+
+    Condition interestsCondition = (level, context) -> {
+      // the root object is "$." and doesn't have an interests property, so null
+      // [null, [yodelling], [keyboards], [iceskating]]
+      // Note we get the entire array back here for every match
+      List<List<String>> list = context.findList("$..interests");
+      return list.stream().anyMatch(i -> i != null && i.get(0).equals("iceskating"));
+    };
+
+    logger.info(interestsCondition, "Prints if someone likes iceskating",
+      fb -> fb.only(fb.person("person", abe)));
   }
 }
