@@ -18,6 +18,14 @@ Solution: Use conditions and connect to a key/value backend like Redis to evalua
 
 Demonstrates dynamic control of logging through Redis and [Caffeine](https://github.com/ben-manes/caffeine). See [README](redis/README.md).
 
+## JMX
+
+Scenario: You want to turn debug logging on and off in an application for individual loggers running locally, from a GUI console. 
+
+Solution: Use JMX flags on conditions, and use [JDK Mission Control](https://github.com/openjdk/jmc#downloading-builds) to change boolean flags attached to loggers.
+
+Demonstrates dynamic control of logging through JMX. See [README](jmx/README.md).
+
 ## Condition Store
 
 Scenario: you want dynamic targeted logging using conditions that test against specific arguments in your logging statements.
