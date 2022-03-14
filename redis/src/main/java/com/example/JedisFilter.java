@@ -7,14 +7,13 @@ import com.tersesystems.echopraxia.Level;
 import com.tersesystems.echopraxia.LoggingContext;
 import com.tersesystems.echopraxia.core.CoreLogger;
 import com.tersesystems.echopraxia.core.CoreLoggerFilter;
+import java.time.Duration;
+import java.util.HashSet;
+import java.util.Set;
 import redis.clients.jedis.*;
 import redis.clients.jedis.params.ScanParams;
 import redis.clients.jedis.providers.PooledConnectionProvider;
 import redis.clients.jedis.resps.ScanResult;
-
-import java.time.Duration;
-import java.util.HashSet;
-import java.util.Set;
 
 public class JedisFilter implements CoreLoggerFilter, AutoCloseable {
 
@@ -28,10 +27,11 @@ public class JedisFilter implements CoreLoggerFilter, AutoCloseable {
     client = new JedisPooled(provider);
 
     // Set up cache and refresh
-    cache = Caffeine.newBuilder()
-      .maximumSize(10_000)
-      .refreshAfterWrite(Duration.ofSeconds(10)) // async call to redis if > 10 seconds old
-      .build(this::queryRedis);
+    cache =
+        Caffeine.newBuilder()
+            .maximumSize(10_000)
+            .refreshAfterWrite(Duration.ofSeconds(10)) // async call to redis if > 10 seconds old
+            .build(this::queryRedis);
 
     // Load up a starting set of keys from cache
     Set<String> keys = getKeysFromRedis();
