@@ -1,7 +1,7 @@
 library echopraxia {
-  function evaluate: (string level, function ctx) ->
+  function evaluate: (string level, dict ctx) ->
     let {
-      find_number: ctx("find_number");
+      fields: ctx[:fields]();
     }
-    find_number("$.age") == 1;
+    fields[:age] == 1;
 }

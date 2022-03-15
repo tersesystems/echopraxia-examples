@@ -9,9 +9,9 @@ alias std.strings as str;
 
 library echopraxia {
 
-  function evaluate: (string level, function ctx) ->
+  function evaluate: (string level, dict ctx) ->
     let {
-      find_string: ctx("find_string");
+      find_string: ctx[:find_string];
     }
     (str.lower_case(find_string("$.exception.message")) == "some message");
     
