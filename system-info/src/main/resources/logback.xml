@@ -49,7 +49,6 @@
     <root level="INFO">
         <appender class="com.tersesystems.echopraxia.logstash.CallerDataAppender">
             <appender-ref ref="CONSOLE"/>
-            <appender-ref ref="ASYNCJSON"/>
         </appender>
     </root>
 
