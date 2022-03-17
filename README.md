@@ -26,13 +26,21 @@ Solution: Use JMX flags on conditions, and use [JDK Mission Control](https://git
 
 Demonstrates dynamic control of logging through JMX. See [README](jmx/README.md).
 
-## Condition Store
+## Scripting 
 
 Scenario: you want dynamic targeted logging using conditions that test against specific arguments in your logging statements.
 
-Solution: Use scripts, and keep the scripts in a central location so they can be easily stored and updated.
+Solution: Use [script conditions](https://github.com/tersesystems/echopraxia#dynamic-conditions-with-scripts) on the filesystem, and watch for changes in files.
 
-Demonstrates dynamic control of logging through [script conditions](https://github.com/tersesystems/echopraxia#dynamic-conditions-with-scripts) kept in an [SQLite database](sqlite.org/) as a backing store.  See [README](conditionstore/README.md).
+Demonstrates use of Tweakflow scripts, and the ScriptWatchService. See [README](script/README.md).
+
+## Condition Store
+
+Scenario: You want scripts, but you're running in a production environment where centralized control over logging is important.
+
+Solution: Keep the scripts in a data store so they can be easily managed.
+
+Demonstrates dynamic control of scripts kept in an [SQLite database](sqlite.org/) as a backing store.  See [README](conditionstore/README.md).
 
 ## Timed Diagnostic
 
@@ -62,7 +70,7 @@ Demonstrates a [filter](https://github.com/tersesystems/echopraxia#filters) to a
 
 Scenario: You want to log some complex domain objects as structured fields, along with custom logging statements.
 
-Solution: Use custom field builders.
+Solution: Use custom field builders and loggers.
 
 Demonstrates use of a custom field builder and fancy loggers.  See [README](custom-field-builder/README.md).
 
