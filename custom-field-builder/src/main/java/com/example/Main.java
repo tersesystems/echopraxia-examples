@@ -38,5 +38,7 @@ public class Main {
         interestsCondition,
         "Prints if someone likes iceskating",
         fb -> fb.only(fb.person("person", abe)));
+
+    logger.info("Custom logging message!", abe);
   }
 }

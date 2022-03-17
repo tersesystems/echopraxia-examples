@@ -43,19 +43,22 @@ public class Main {
   }
 
   public void warn() {
-    logger.warn(warnCondition, "warning {}", fb -> {
-      Field name = fb.string("name", "Will");
-      Field age = fb.number("age", 23);
-      Field interests = fb.array("interests", "reading", "writing", "rithmatic");
-      return fb.onlyObject("person", name, age, interests);
-    });
+    logger.warn(
+        warnCondition,
+        "warning {}",
+        fb -> {
+          Field name = fb.string("name", "Will");
+          Field age = fb.number("age", 23);
+          Field interests = fb.array("interests", "reading", "writing", "rithmatic");
+          return fb.onlyObject("person", name, age, interests);
+        });
   }
 
   public void info() {
     logger.info(
-      infoCondition,
-      "logging {} {}",
-      fb -> fb.list(fb.string("name", "Eloise"), fb.number("age", 1)));
+        infoCondition,
+        "logging {} {}",
+        fb -> fb.list(fb.string("name", "Eloise"), fb.number("age", 1)));
   }
 
   public void error() {
