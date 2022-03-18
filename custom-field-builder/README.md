@@ -3,6 +3,7 @@
 This project demonstrates the use of custom field builders and loggers.  You can easily set up a logger that can render complex domain objects and have them rendered in structured logging:
 
 ```java
+
 public class Main {
 
   // Use a logger with a custom field builder that can log a Person object.
@@ -13,9 +14,34 @@ public class Main {
     abe.setFather(new Person("Bert", 35, "keyboards"));
     abe.setMother(new Person("Candace", 30, "iceskating"));
 
-    logger.info("Hi there {}", fb -> fb.only(fb.person("person", abe)));
-  }
+    Condition ageCondition =
+        (level, context) ->
+            context
+                .findNumber("$.person.mother.age")
+                .filter(age -> age.intValue() > 30)
+                .isPresent();
 
+    logger.info(
+        ageCondition,
+        "Prints if person's mother age is more than 30",
+        fb -> fb.only(fb.person("person", abe)));
+
+    Condition interestsCondition =
+        (level, context) -> {
+          // the root object is "$." and doesn't have an interests property, so null
+          // [null, [yodelling], [keyboards], [iceskating]]
+          // Note we get the entire array back here for every match
+          List<List<String>> list = context.findList("$..interests");
+          return list.stream().anyMatch(i -> i != null && i.get(0).equals("iceskating"));
+        };
+
+    logger.info(
+        interestsCondition,
+        "Prints if someone likes iceskating",
+        fb -> fb.only(fb.person("person", abe)));
+
+    logger.info("Custom logging message!", abe);
+  }
 }
 ```
 
@@ -23,10 +49,25 @@ Defined using a `PersonLogger`:
 
 ```java
 public class PersonLogger extends AbstractLoggerSupport<PersonLogger, PersonFieldBuilder>
-  implements DefaultLoggerMethods<PersonFieldBuilder> {
+    implements DefaultLoggerMethods<PersonFieldBuilder> {
+  private static final String FQCN = PersonLogger.class.getName();
 
-  protected PersonLogger(@NotNull CoreLogger core, @NotNull PersonFieldBuilder fieldBuilder, Class<?> selfType) {
+  protected PersonLogger(
+      @NotNull CoreLogger core, @NotNull PersonFieldBuilder fieldBuilder, Class<?> selfType) {
     super(core, fieldBuilder, selfType);
+  }
+
+  public void info(@Nullable String message, Person person) {
+    // when using custom methods, you must specify the caller as the class it's defined in.
+    this.core()
+        .withFQCN(FQCN)
+        .log(
+            Level.INFO,
+            message,
+            fb -> {
+              return fb.only(fb.person("person", person));
+            },
+            fieldBuilder);
   }
 
   @Override
@@ -36,7 +77,8 @@ public class PersonLogger extends AbstractLoggerSupport<PersonLogger, PersonFiel
 
   @Override
   protected @NotNull PersonLogger neverLogger() {
-    return new PersonLogger(core.withCondition(Condition.never()), fieldBuilder(), PersonLogger.class);
+    return new PersonLogger(
+        core.withCondition(Condition.never()), fieldBuilder(), PersonLogger.class);
   }
 }
 ```
@@ -72,6 +114,14 @@ public class PersonLoggerFactory {
 
   // the class containing the error/warn/info/debug/trace methods
   private static final String FQCN = DefaultLoggerMethods.class.getName();
+
+  public static PersonLogger getLogger(Class<?> clazz) {
+    return getLogger(CoreLoggerFactory.getLogger(FQCN, clazz.getName()));
+  }
+
+  public static PersonLogger getLogger(String name) {
+    return getLogger(CoreLoggerFactory.getLogger(FQCN, name));
+  }
 
   public static PersonLogger getLogger() {
     return getLogger(CoreLoggerFactory.getLogger(FQCN, Caller.resolveClassName()));
