@@ -10,11 +10,11 @@ Solution: Use asynchronous logging, which will do all logging in another thread.
 
 Demonstrates [AsyncLogger](https://github.com/tersesystems/echopraxia#asynchronous-logging) with correct caller info.  See [README](async/README.md).
 
-## Redis
+## Redis Condition Store
 
-Scenario: you want to change logger levels dynamically, without restarting the application.
+Scenario: you want to change logging dynamically, without restarting the application.
 
-Solution: Use conditions and connect to a key/value backend like Redis to evaluate levels. 
+Solution: Use conditions and connect to a key/value backend like Redis to process scripts.
 
 Demonstrates dynamic control of logging through Redis and [Caffeine](https://github.com/ben-manes/caffeine). See [README](redis/README.md).
 
@@ -34,11 +34,11 @@ Solution: Use [script conditions](https://github.com/tersesystems/echopraxia#dyn
 
 Demonstrates use of Tweakflow scripts, and the ScriptWatchService. See [README](script/README.md).
 
-## Condition Store
+## SQLite Condition Store
 
-Scenario: You want scripts, but you're running in a production environment where centralized control over logging is important.
+Scenario: You want scripts, but you're running in a production environment where centralized control over logging is important, and using Redis is overkill.
 
-Solution: Keep the scripts in a data store so they can be easily managed.
+Solution: Keep the scripts in an SQLite database.
 
 Demonstrates dynamic control of scripts kept in an [SQLite database](sqlite.org/) as a backing store.  See [README](conditionstore/README.md).
 
