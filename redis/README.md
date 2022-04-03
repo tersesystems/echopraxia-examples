@@ -1,8 +1,8 @@
-# Redis
+# Redis Condition Store
 
-Scenario: You want to control logging levels in your application, without restarting it.
+Scenario: you want to change logging dynamically, without restarting the application.
 
-Solution: Use Redis and set logging levels from there.
+Solution: Use conditions and connect to a key/value backend like Redis to process scripts.
 
 ## Implementation
 
@@ -12,8 +12,9 @@ The implementation uses a filter, which connects to Redis to query for the level
 public class JedisFilter implements CoreLoggerFilter, AutoCloseable {
 
   private final JedisPooled client;
-  private final Level defaultThreshold = Level.INFO;
-  private final LoadingCache<String, Level> cache;
+  private static final Logger logger = org.slf4j.LoggerFactory.getLogger(JedisFilter.class);
+
+  private final LoadingCache<String, Condition> cache;
 
   public JedisFilter() {
     HostAndPort config = new HostAndPort(Protocol.DEFAULT_HOST, 6379);
@@ -21,10 +22,11 @@ public class JedisFilter implements CoreLoggerFilter, AutoCloseable {
     client = new JedisPooled(provider);
 
     // Set up cache and refresh
-    cache = Caffeine.newBuilder()
-      .maximumSize(10_000)
-      .refreshAfterWrite(Duration.ofSeconds(10)) // async call to redis if > 10 seconds old
-      .build(this::queryRedis);
+    cache =
+            Caffeine.newBuilder()
+                    .maximumSize(10_000)
+                    .refreshAfterWrite(Duration.ofSeconds(1)) // refresh after every cache access
+                    .build(this::queryRedis);
 
     // Load up a starting set of keys from cache
     Set<String> keys = getKeysFromRedis();
@@ -45,9 +47,9 @@ public class JedisFilter implements CoreLoggerFilter, AutoCloseable {
     return allKeys;
   }
 
-  private Level queryRedis(String key) {
-    String result = client.get(key);
-    return result == null ? defaultThreshold : Level.valueOf(result);
+  private Condition queryRedis(String key) {
+    String script = client.get(key);
+    return script != null ? ScriptCondition.create(false, script, e -> logger.error("Cannot compile script!", e)) : null;
   }
 
   public void close() {
@@ -69,8 +71,11 @@ public class JedisFilter implements CoreLoggerFilter, AutoCloseable {
 
     @Override
     public boolean test(Level level, LoggingContext context) {
-      final Level threshold = cache.get(name);
-      return level.isGreaterOrEqual(threshold);
+      final Condition scriptCondition = cache.get(name);
+      if (scriptCondition != null) {
+        return scriptCondition.test(level, context);
+      }
+      return Condition.operational().test(level, context);
     }
   }
 }
@@ -84,23 +89,6 @@ You can create a Redis instance using the provided script, which uses Docker und
 $ ./redis-instance
 ```
 
-Create an entry setting the `com.example.Main` logger to `DEBUG`.
+Create an entry in Redis with the key `com.example.Main` and the value of the [info.tf script](info.tf).  I like using [Another Redis Desktop Manager](https://github.com/qishibo/AnotherRedisDesktopManager/releases) for this.
 
-```bash
-$ ./redis-cli 
-# redis-cli
-127.0.0.1:6379> ping
-PONG
-127.0.0.1:6379> set com.example.Main DEBUG
-OK
-127.0.0.1:6379> get com.example.Main
-"DEBUG"
-127.0.0.1:6379> exit
-```
-
-You can delete entries in Redis:
-
-```bash
-127.0.0.1:6379> del com.example.Main
-(integer) 1
-```
+Once you set the script and wait a second, then the script will take priority over the `operational` condition.

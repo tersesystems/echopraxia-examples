@@ -10,7 +10,10 @@ public class Main {
     while (true) {
       logger.error("logging an error");
       logger.warn("logging a warning");
-      logger.info("logging info");
+
+      logger.info("logging info with herp", fb -> fb.onlyString("name", "herp"));
+      logger.info("logging info with derp", fb -> fb.onlyString("name", "derp"));
+
       logger.debug("logging debug");
       logger.trace("logging trace");
 

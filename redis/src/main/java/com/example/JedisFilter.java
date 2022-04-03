@@ -10,6 +10,10 @@ import com.tersesystems.echopraxia.core.CoreLoggerFilter;
 import java.time.Duration;
 import java.util.HashSet;
 import java.util.Set;
+
+import com.tersesystems.echopraxia.scripting.ScriptCondition;
+import com.tersesystems.echopraxia.scripting.ScriptHandle;
+import org.slf4j.Logger;
 import redis.clients.jedis.*;
 import redis.clients.jedis.params.ScanParams;
 import redis.clients.jedis.providers.PooledConnectionProvider;
@@ -18,8 +22,9 @@ import redis.clients.jedis.resps.ScanResult;
 public class JedisFilter implements CoreLoggerFilter, AutoCloseable {
 
   private final JedisPooled client;
-  private final Level defaultThreshold = Level.INFO;
-  private final LoadingCache<String, Level> cache;
+  private static final Logger logger = org.slf4j.LoggerFactory.getLogger(JedisFilter.class);
+
+  private final LoadingCache<String, Condition> cache;
 
   public JedisFilter() {
     HostAndPort config = new HostAndPort(Protocol.DEFAULT_HOST, 6379);
@@ -30,7 +35,7 @@ public class JedisFilter implements CoreLoggerFilter, AutoCloseable {
     cache =
         Caffeine.newBuilder()
             .maximumSize(10_000)
-            .refreshAfterWrite(Duration.ofSeconds(10)) // async call to redis if > 10 seconds old
+            .refreshAfterWrite(Duration.ofSeconds(1)) // refresh after every cache access
             .build(this::queryRedis);
 
     // Load up a starting set of keys from cache
@@ -52,9 +57,9 @@ public class JedisFilter implements CoreLoggerFilter, AutoCloseable {
     return allKeys;
   }
 
-  private Level queryRedis(String key) {
-    String result = client.get(key);
-    return result == null ? defaultThreshold : Level.valueOf(result);
+  private Condition queryRedis(String key) {
+    String script = client.get(key);
+    return script != null ? ScriptCondition.create(false, script, e -> logger.error("Cannot compile script!", e)) : null;
   }
 
   public void close() {
@@ -76,8 +81,11 @@ public class JedisFilter implements CoreLoggerFilter, AutoCloseable {
 
     @Override
     public boolean test(Level level, LoggingContext context) {
-      final Level threshold = cache.get(name);
-      return level.isGreaterOrEqual(threshold);
+      final Condition scriptCondition = cache.get(name);
+      if (scriptCondition != null) {
+        return scriptCondition.test(level, context);
+      }
+      return Condition.operational().test(level, context);
     }
   }
 }
