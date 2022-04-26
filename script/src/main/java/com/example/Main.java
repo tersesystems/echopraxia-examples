@@ -11,23 +11,21 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 public class Main {
-  private static final Logger<?> logger = LoggerFactory.getLogger();
+  private final Logger<?> logger;
+  
   private final ScriptWatchService sws;
-  private final Condition errorCondition;
-  private final Condition warnCondition;
   private final Condition infoCondition;
 
   public static void main(String[] args) throws InterruptedException {
-    Path dir = Paths.get("scripting").toAbsolutePath();
+    Path dir = Paths.get(".").toAbsolutePath();
     Main main = new Main(dir);
     main.doStuff();
   }
 
   public Main(Path dir) {
     sws = new ScriptWatchService(dir);
-    errorCondition = createCondition(dir.resolve("error.tf"));
-    warnCondition = createCondition(dir.resolve("warn.tf"));
-    infoCondition = createCondition(dir.resolve("info.tf"));
+    infoCondition = createCondition(dir.resolve("op.tf"));
+    logger = LoggerFactory.getLogger().withCondition(infoCondition);
   }
 
   public void doStuff() throws InterruptedException {
@@ -36,15 +34,19 @@ public class Main {
         error();
         warn();
         info();
+        debug();
       } finally {
         Thread.sleep(2000L);
       }
     }
   }
 
+  public void debug() {
+    logger.debug("some debug statement");
+  }
+
   public void warn() {
     logger.warn(
-        warnCondition,
         "warning {}",
         fb -> {
           Field name = fb.string("name", "Will");
@@ -56,13 +58,12 @@ public class Main {
 
   public void info() {
     logger.info(
-        infoCondition,
         "logging {} {}",
         fb -> fb.list(fb.string("name", "Eloise"), fb.number("age", 1)));
   }
 
   public void error() {
-    logger.error(errorCondition, "Some error", new RuntimeException("Some Message"));
+    logger.error("Some error", new RuntimeException("Some Message"));
   }
 
   private Condition createCondition(Path file) {

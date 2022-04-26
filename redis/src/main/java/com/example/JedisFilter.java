@@ -33,10 +33,17 @@ public class JedisFilter implements CoreLoggerFilter, AutoCloseable {
 
     // Set up cache and refresh
     cache =
+<<<<<<< Updated upstream
         Caffeine.newBuilder()
             .maximumSize(10_000)
             .refreshAfterWrite(Duration.ofSeconds(1)) // refresh after every cache access
             .build(this::queryRedis);
+=======
+      Caffeine.newBuilder()
+        .maximumSize(10_000)
+        .refreshAfterWrite(Duration.ofSeconds(1)) // refresh after every cache access
+        .build(this::queryRedis);
+>>>>>>> Stashed changes
 
     // Load up a starting set of keys from cache
     Set<String> keys = getKeysFromRedis();

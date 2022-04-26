@@ -1,3 +1,5 @@
+mainClassName  = "com.example.Main"
+
 dependencies {
     implementation "com.tersesystems.echopraxia:logstash:$version"
     implementation "com.tersesystems.echopraxia:scripting:$version"
