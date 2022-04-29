@@ -1,6 +1,6 @@
 package com.example;
 
-import com.tersesystems.echopraxia.Condition;
+import com.tersesystems.echopraxia.api.Condition;
 import com.tersesystems.echopraxia.scripting.ScriptCondition;
 import com.tersesystems.echopraxia.scripting.ScriptException;
 import com.tersesystems.echopraxia.scripting.ScriptHandle;

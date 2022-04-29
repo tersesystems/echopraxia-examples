@@ -1,8 +1,6 @@
 package com.example;
 
-import com.tersesystems.echopraxia.Field;
-import com.tersesystems.echopraxia.core.CoreLogger;
-import com.tersesystems.echopraxia.core.CoreLoggerFilter;
+import com.tersesystems.echopraxia.api.*;
 import oshi.SystemInfo;
 import oshi.hardware.CentralProcessor;
 import oshi.hardware.GlobalMemory;
@@ -41,6 +39,6 @@ public class SystemInfoFilter implements CoreLoggerFilter {
           Field sysinfoField = fb.object("sysinfo", loadField, memField);
           return fb.only(sysinfoField);
         },
-        Field.Builder.instance());
+        FieldBuilder.instance());
   }
 }

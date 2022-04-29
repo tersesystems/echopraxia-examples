@@ -1,9 +1,6 @@
 package com.example;
 
-import com.tersesystems.echopraxia.Condition;
-import com.tersesystems.echopraxia.Field;
-import com.tersesystems.echopraxia.Level;
-import com.tersesystems.echopraxia.LoggingContext;
+import com.tersesystems.echopraxia.api.*;
 import dev.failsafe.CircuitBreaker;
 import java.time.Duration;
 import java.util.List;
@@ -83,7 +80,7 @@ public class DiagnosticAlertManager {
     private Optional<Throwable> findException(LoggingContext context) {
       List<Field> fields = context.getFields();
       for (Field f : fields) {
-        if (f.value().type() == Field.Value.ValueType.EXCEPTION) {
+        if (f.value().type() == Value.Type.EXCEPTION) {
           return Optional.of((Throwable) f.value().raw());
         }
       }
