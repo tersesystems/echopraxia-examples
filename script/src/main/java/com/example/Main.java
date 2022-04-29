@@ -1,9 +1,9 @@
 package com.example;
 
-import com.tersesystems.echopraxia.Condition;
-import com.tersesystems.echopraxia.Field;
 import com.tersesystems.echopraxia.Logger;
 import com.tersesystems.echopraxia.LoggerFactory;
+import com.tersesystems.echopraxia.api.Condition;
+import com.tersesystems.echopraxia.api.Field;
 import com.tersesystems.echopraxia.scripting.ScriptCondition;
 import com.tersesystems.echopraxia.scripting.ScriptHandle;
 import com.tersesystems.echopraxia.scripting.ScriptWatchService;

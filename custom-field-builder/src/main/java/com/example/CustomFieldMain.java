@@ -1,7 +1,6 @@
 package com.example;
 
 import com.tersesystems.echopraxia.api.*;
-
 import java.util.List;
 
 public class CustomFieldMain {

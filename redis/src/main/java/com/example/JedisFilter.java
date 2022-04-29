@@ -2,11 +2,7 @@ package com.example;
 
 import com.github.benmanes.caffeine.cache.Caffeine;
 import com.github.benmanes.caffeine.cache.LoadingCache;
-import com.tersesystems.echopraxia.Condition;
-import com.tersesystems.echopraxia.Level;
-import com.tersesystems.echopraxia.LoggingContext;
-import com.tersesystems.echopraxia.core.CoreLogger;
-import com.tersesystems.echopraxia.core.CoreLoggerFilter;
+import com.tersesystems.echopraxia.api.*;
 import com.tersesystems.echopraxia.scripting.ScriptCondition;
 import java.time.Duration;
 import java.util.HashSet;

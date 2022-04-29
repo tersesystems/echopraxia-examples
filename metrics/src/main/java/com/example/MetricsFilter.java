@@ -1,9 +1,9 @@
 package com.example;
 
 import com.example.conditions.MeterCondition;
-import com.tersesystems.echopraxia.Condition;
-import com.tersesystems.echopraxia.core.CoreLogger;
-import com.tersesystems.echopraxia.core.CoreLoggerFilter;
+import com.tersesystems.echopraxia.api.Condition;
+import com.tersesystems.echopraxia.api.CoreLogger;
+import com.tersesystems.echopraxia.api.CoreLoggerFilter;
 
 public class MetricsFilter implements CoreLoggerFilter {
 

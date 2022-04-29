@@ -19,5 +19,7 @@ dependencies {
     implementation 'redis.clients:jedis:4.1.1'
 
     // https://mvnrepository.com/artifact/com.github.ben-manes.caffeine/caffeine
-    implementation 'com.github.ben-manes.caffeine:caffeine:3.0.6'
+    // if we use later than 2.9.3 then we get "class file has wrong version 55.0, should be 52.0"
+    // so there's something involving JDK 11 packaging going on.
+    implementation 'com.github.ben-manes.caffeine:caffeine:2.9.3'
 }
