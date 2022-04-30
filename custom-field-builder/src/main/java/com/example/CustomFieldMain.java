@@ -24,7 +24,7 @@ public class CustomFieldMain {
     logger.info(
         ageCondition,
         "Prints if person's mother age is more than 30",
-        fb -> fb.only(fb.person("person", abe)));
+        fb -> fb.person("person", abe));
 
     Condition interestsCondition =
         (level, context) -> {
@@ -35,7 +35,7 @@ public class CustomFieldMain {
               .anyMatch(
                   i -> {
                     if (i instanceof List) {
-                      return ((List) i).get(0).equals("iceskating");
+                      return ((List<?>) i).get(0).equals("iceskating");
                     }
                     return false;
                   });
@@ -44,7 +44,7 @@ public class CustomFieldMain {
     logger.info(
         interestsCondition,
         "Prints if someone likes iceskating",
-        fb -> fb.only(fb.person("person", abe)));
+        fb -> fb.person("person", abe));
 
     logger.info("Custom logging message with person {}!", abe);
   }

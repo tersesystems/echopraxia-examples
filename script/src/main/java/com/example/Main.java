@@ -50,7 +50,7 @@ public class Main {
           Field name = fb.string("name", "Will");
           Field age = fb.number("age", 23);
           Field interests = fb.array("interests", "reading", "writing", "rithmatic");
-          return fb.onlyObject("person", name, age, interests);
+          return fb.object("person", name, age, interests);
         });
   }
 

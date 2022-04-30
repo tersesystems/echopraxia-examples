@@ -36,8 +36,8 @@ public class SystemInfoFilter implements CoreLoggerFilter {
                   "mem", //
                   fb.number("available", mem.getAvailable()), //
                   fb.number("total", mem.getTotal()));
-          Field sysinfoField = fb.object("sysinfo", loadField, memField);
-          return fb.only(sysinfoField);
+          Field sysinfo = fb.object("sysinfo", loadField, memField);
+          return sysinfo;
         },
         FieldBuilder.instance());
   }

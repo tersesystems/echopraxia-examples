@@ -21,10 +21,7 @@ public class PersonLogger extends AbstractLoggerSupport<PersonLogger, PersonFiel
         .withFQCN(FQCN)
         .log(
             Level.INFO,
-            message,
-            fb -> {
-              return fb.only(fb.person("person", person));
-            },
+            message, fb -> fb.person("person", person),
             fieldBuilder);
   }
 

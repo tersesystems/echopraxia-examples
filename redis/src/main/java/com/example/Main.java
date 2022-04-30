@@ -12,8 +12,8 @@ public class Main {
       logger.error("logging an error");
       logger.warn("logging a warning");
 
-      logger.info("logging info with herp", fb -> fb.onlyString("name", "herp"));
-      logger.info("logging info with derp", fb -> fb.onlyString("name", "derp"));
+      logger.info("logging info with herp", fb -> fb.string("name", "herp"));
+      logger.info("logging info with derp", fb -> fb.string("name", "derp"));
 
       logger.debug("logging debug");
       logger.trace("logging trace");
