@@ -1,8 +1,6 @@
 package com.example;
 
-import com.tersesystems.echopraxia.Condition;
-import com.tersesystems.echopraxia.core.CoreLogger;
-import com.tersesystems.echopraxia.core.CoreLoggerFilter;
+import com.tersesystems.echopraxia.api.*;
 import com.tersesystems.echopraxia.scripting.ScriptException;
 import java.sql.SQLException;
 import java.util.ResourceBundle;

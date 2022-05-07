@@ -1,9 +1,9 @@
 package com.example;
 
-import com.tersesystems.echopraxia.Condition;
-import com.tersesystems.echopraxia.Field;
 import com.tersesystems.echopraxia.Logger;
 import com.tersesystems.echopraxia.LoggerFactory;
+import com.tersesystems.echopraxia.api.Condition;
+import com.tersesystems.echopraxia.api.Field;
 import com.tersesystems.echopraxia.scripting.ScriptCondition;
 import com.tersesystems.echopraxia.scripting.ScriptHandle;
 import com.tersesystems.echopraxia.scripting.ScriptWatchService;
@@ -50,7 +50,7 @@ public class Main {
           Field name = fb.string("name", "Will");
           Field age = fb.number("age", 23);
           Field interests = fb.array("interests", "reading", "writing", "rithmatic");
-          return fb.onlyObject("person", name, age, interests);
+          return fb.object("person", name, age, interests);
         });
   }
 

@@ -1,6 +1,8 @@
-dependencies {
-    implementation "com.tersesystems.echopraxia:logstash:$version"
+// gradle run
+mainClassName  = "com.example.CustomFieldMain"
 
-    implementation 'org.slf4j:slf4j-api:1.7.35'
+dependencies {
+    implementation "com.tersesystems.echopraxia:logger:$version"
+    implementation "com.tersesystems.echopraxia:logstash:$version"
 }
 

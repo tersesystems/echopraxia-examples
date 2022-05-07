@@ -1,14 +1,12 @@
 package com.example;
 
-import static com.tersesystems.echopraxia.Field.Value;
-
-import com.tersesystems.echopraxia.Field;
+import com.tersesystems.echopraxia.api.*;
 
 /**
  * A custom field builder. This is useful for structured logging because typically you want to
  * serialize custom objects to JSON in one place.
  */
-public class PersonFieldBuilder implements Field.Builder {
+public class PersonFieldBuilder implements FieldBuilder {
   // Renders a `Person` as an object field.
   public Field person(String fieldName, Person p) {
     return keyValue(fieldName, personValue(p));

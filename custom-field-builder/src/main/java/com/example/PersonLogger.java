@@ -1,10 +1,7 @@
 package com.example;
 
-import com.tersesystems.echopraxia.Condition;
-import com.tersesystems.echopraxia.Level;
-import com.tersesystems.echopraxia.core.CoreLogger;
-import com.tersesystems.echopraxia.support.AbstractLoggerSupport;
-import com.tersesystems.echopraxia.support.DefaultLoggerMethods;
+import com.tersesystems.echopraxia.DefaultLoggerMethods;
+import com.tersesystems.echopraxia.api.*;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -24,10 +21,7 @@ public class PersonLogger extends AbstractLoggerSupport<PersonLogger, PersonFiel
         .withFQCN(FQCN)
         .log(
             Level.INFO,
-            message,
-            fb -> {
-              return fb.only(fb.person("person", person));
-            },
+            message, fb -> fb.person("person", person),
             fieldBuilder);
   }
 

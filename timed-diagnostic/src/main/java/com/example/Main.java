@@ -1,8 +1,8 @@
 package com.example;
 
-import com.tersesystems.echopraxia.Level;
 import com.tersesystems.echopraxia.Logger;
 import com.tersesystems.echopraxia.LoggerFactory;
+import com.tersesystems.echopraxia.api.Level;
 import dev.failsafe.CircuitBreaker;
 import java.time.Duration;
 import java.time.LocalTime;
