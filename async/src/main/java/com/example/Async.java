@@ -1,7 +1,6 @@
 package com.example;
 
 import com.tersesystems.echopraxia.api.Condition;
-import com.tersesystems.echopraxia.api.Value;
 import com.tersesystems.echopraxia.async.AsyncLogger;
 import com.tersesystems.echopraxia.async.AsyncLoggerFactory;
 import java.util.concurrent.ExecutorService;
