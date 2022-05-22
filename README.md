@@ -74,3 +74,10 @@ Solution: Use custom field builders and loggers.
 
 Demonstrates use of a custom field builder and fancy loggers.  See [README](custom-field-builder/README.md).
 
+## Custom Conditions
+
+Scenario: You want to add a condition that doesn't depend on JSON Path.
+
+Solution: Use the streaming API.
+
+Demonstrates use of the streaming API to search through the context tree.  See [README](custom-condition/README.md).
