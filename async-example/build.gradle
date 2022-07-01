@@ -2,7 +2,7 @@
 // ./gradlew example:installDist
 // cd example/build/install/example
 // ./bin/example
-mainClassName  = "Async"
+mainClassName  = "AsyncMain"
 
 dependencies {
     implementation "com.tersesystems.echopraxia:async:$version"

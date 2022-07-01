@@ -3,29 +3,34 @@ package com.customcondition;
 import com.tersesystems.echopraxia.Logger;
 import com.tersesystems.echopraxia.LoggerFactory;
 import com.tersesystems.echopraxia.api.*;
-
 import java.util.Objects;
 import java.util.function.Predicate;
 
 public class Main {
 
-  static Condition loginCondition = Condition.valueMatch("login",  v -> {
-    if (v.type() == Value.Type.OBJECT) {
-      return fieldMatch((Value.ObjectValue) v, "name", f -> Objects.equals(f.raw(), "will"));
-    } else {
-      return false;
-    }
-  });
+  static Condition loginCondition =
+      Condition.valueMatch(
+          "login",
+          v -> {
+            if (v.type() == Value.Type.OBJECT) {
+              return fieldMatch(
+                  (Value.ObjectValue) v, "name", f -> Objects.equals(f.raw(), "will"));
+            } else {
+              return false;
+            }
+          });
 
   static boolean fieldMatch(Value.ObjectValue v, String fieldName, Predicate<Value<?>> predicate) {
-    return v.raw().stream().filter(f -> f.name().equals(fieldName))
-      .map(Field::value)
-      .anyMatch(predicate);
+    return v.raw().stream()
+        .filter(f -> f.name().equals(fieldName))
+        .map(Field::value)
+        .anyMatch(predicate);
   }
 
   static UserFieldBuilder userBuilder = new UserFieldBuilder();
 
-  static Logger<UserFieldBuilder> logger = LoggerFactory.getLogger().withFieldBuilder(userBuilder).withCondition(loginCondition);
+  static Logger<UserFieldBuilder> logger =
+      LoggerFactory.getLogger().withFieldBuilder(userBuilder).withCondition(loginCondition);
 
   public static void main(String[] args) {
     User steve = new User("steve", 16);

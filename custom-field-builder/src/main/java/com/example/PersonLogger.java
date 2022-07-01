@@ -19,10 +19,7 @@ public class PersonLogger extends AbstractLoggerSupport<PersonLogger, PersonFiel
     // when using custom methods, you must specify the caller as the class it's defined in.
     this.core()
         .withFQCN(FQCN)
-        .log(
-            Level.INFO,
-            message, fb -> fb.person("person", person),
-            fieldBuilder);
+        .log(Level.INFO, message, fb -> fb.person("person", person), fieldBuilder);
   }
 
   @Override

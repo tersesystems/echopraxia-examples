@@ -8,7 +8,7 @@ Scenario: you want to log conditionally, but you don't want to incur the costs o
 
 Solution: Use asynchronous logging, which will do all logging in another thread.
 
-Demonstrates [AsyncLogger](https://github.com/tersesystems/echopraxia#asynchronous-logging) with correct caller info.  See [README](async/README.md).
+Demonstrates [AsyncLogger](https://github.com/tersesystems/echopraxia#asynchronous-logging) with correct caller info.  See [README](async-example/README.md).
 
 ## Redis Condition Store
 
