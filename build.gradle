@@ -11,7 +11,7 @@ subprojects { subproj ->
     apply plugin: 'com.diffplug.spotless'
 
     repositories {
-        mavenLocal()
+        //mavenLocal()
         mavenCentral()
     }
 

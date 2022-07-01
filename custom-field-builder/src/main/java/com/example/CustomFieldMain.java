@@ -42,9 +42,7 @@ public class CustomFieldMain {
         };
 
     logger.info(
-        interestsCondition,
-        "Prints if someone likes iceskating",
-        fb -> fb.person("person", abe));
+        interestsCondition, "Prints if someone likes iceskating", fb -> fb.person("person", abe));
 
     logger.info("Custom logging message with person {}!", abe);
   }

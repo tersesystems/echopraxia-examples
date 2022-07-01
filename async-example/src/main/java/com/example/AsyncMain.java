@@ -6,7 +6,7 @@ import com.tersesystems.echopraxia.async.AsyncLoggerFactory;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-public class Async {
+public class AsyncMain {
 
   // An executor that has a single thread.  This is nice for ordering, but please
   // see the README on how to configure executors for CPU & IO bound operations.
@@ -43,7 +43,8 @@ public class Async {
       // You can put MDC in
       org.slf4j.MDC.put("contextKey", "" + i);
 
-      Condition c = (l, ctx) -> ctx.findString("$.contextKey").filter(key -> key.equals("5")).isPresent();
+      Condition c =
+          (l, ctx) -> ctx.findString("$.contextKey").filter(key -> key.equals("5")).isPresent();
       // and have it available as fields when you use `withThreadContext()`
       logger.withThreadContext().info(c, "Message prints out on contextKey=5");
 
