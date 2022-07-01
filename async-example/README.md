@@ -3,7 +3,7 @@
 This project demonstrates use of `AsyncLogger` with expensive conditions.
 
 ```java
-public class Async {
+public class AsyncMain {
 
   // An executor that has a single thread.  This is nice for ordering, but please
   // see the README on how to configure executors for CPU & IO bound operations.
