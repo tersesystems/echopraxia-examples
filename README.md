@@ -10,6 +10,14 @@ Solution: Use asynchronous logging, which will do all logging in another thread.
 
 Demonstrates [AsyncLogger](https://github.com/tersesystems/echopraxia#asynchronous-logging) with correct caller info.  See [README](async-example/README.md).
 
+## Diffing Objects
+
+Scenario: you have a large object with lots of state, and you want to be able to "diff" the object so you can see only what changed in it.
+
+Solution: Turn the object into a value using a field builder, and then diff the `before` and `after` against each other.
+
+Demonstrates custom deserialization for fields and values using Jackson and [zjsonpatch](https://github.com/flipkart-incubator/zjsonpatch/), a JSON patch library. See [README](diff/README.md).
+
 ## Redis Condition Store
 
 Scenario: you want to change logging dynamically, without restarting the application.
