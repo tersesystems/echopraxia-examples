@@ -1,15 +1,14 @@
 package com.diffbuilder;
 
 import com.tersesystems.echopraxia.api.*;
+import com.tersesystems.echopraxia.diff.DiffFieldBuilder;
 
 public class PersonFieldBuilder implements FieldBuilder, DiffFieldBuilder {
 
-  // Renders a `Person` as an object field.
-  public Field person(String fieldName, Person p) {
-    return keyValue(fieldName, personValue(p));
-  }
+  private PersonFieldBuilder() {}
+  public static final PersonFieldBuilder instance = new PersonFieldBuilder();
 
-  public FieldBuilderResult diffPerson(String name, Person before, Person after) {
+  public FieldBuilderResult diff(String name, Person before, Person after) {
     return diff(name, personValue(before), personValue(after));
   }
 
