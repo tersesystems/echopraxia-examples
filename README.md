@@ -16,7 +16,7 @@ Scenario: you have a large object with lots of state, and you want to be able to
 
 Solution: Turn the object into a value using a field builder, and then diff the `before` and `after` against each other.
 
-Demonstrates custom deserialization for fields and values using Jackson and [zjsonpatch](https://github.com/flipkart-incubator/zjsonpatch/), a JSON patch library. See [README](diff/README.md).
+Demonstrates custom deserialization for fields and values using Jackson and [zjsonpatch](https://github.com/flipkart-incubator/zjsonpatch/), a JSON patch library. See [README](difflog/README.md).
 
 ## Redis Condition Store
 
