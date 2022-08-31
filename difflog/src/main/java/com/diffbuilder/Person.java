@@ -25,5 +25,3 @@ class Person {
     return name;
   }
 }
-
-
