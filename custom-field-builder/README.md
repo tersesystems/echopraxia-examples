@@ -3,13 +3,12 @@
 This project demonstrates the use of custom field builders and loggers.  You can easily set up a logger that can render complex domain objects and have them rendered in structured logging:
 
 ```java
-
-public class Main {
+public class CustomFieldMain {
 
   // Use a logger with a custom field builder that can log a Person object.
   private static final PersonLogger logger = PersonLoggerFactory.getLogger();
 
-  public static void main(String[] args) throws InterruptedException {
+  public static void main(String[] args) {
     Person abe = new Person("Abe", 1, "yodelling");
     abe.setFather(new Person("Bert", 35, "keyboards"));
     abe.setMother(new Person("Candace", 30, "iceskating"));
@@ -21,26 +20,26 @@ public class Main {
                 .filter(age -> age.intValue() > 30)
                 .isPresent();
 
+    // this should not print out because Candace is 30
     logger.info(
         ageCondition,
         "Prints if person's mother age is more than 30",
-        fb -> fb.only(fb.person("person", abe)));
+        fb -> fb.person("person", abe));
 
+    // [[yodelling], [keyboards], [iceskating]]
+    // Note we get the entire array back here for every match
     Condition interestsCondition =
-        (level, context) -> {
-          // the root object is "$." and doesn't have an interests property, so null
-          // [null, [yodelling], [keyboards], [iceskating]]
-          // Note we get the entire array back here for every match
-          List<List<String>> list = context.findList("$..interests");
-          return list.stream().anyMatch(i -> i != null && i.get(0).equals("iceskating"));
-        };
+        (level, context) ->
+            context.findList("$..interests").stream()
+                .anyMatch(
+                    i -> (i instanceof List) ? ((List<?>) i).get(0).equals("iceskating") : false);
 
+    // log with a field builder i.e. Logger<PersonFieldBuilder>
     logger.info(
-        interestsCondition,
-        "Prints if someone likes iceskating",
-        fb -> fb.only(fb.person("person", abe)));
+        interestsCondition, "Prints if someone likes iceskating", fb -> fb.person("person", abe));
 
-    logger.info("Custom logging message!", abe);
+    // Can log directly with a PersonLogger
+    logger.info("Custom logging message with person {}!", abe);
   }
 }
 ```
@@ -61,13 +60,7 @@ public class PersonLogger extends AbstractLoggerSupport<PersonLogger, PersonFiel
     // when using custom methods, you must specify the caller as the class it's defined in.
     this.core()
         .withFQCN(FQCN)
-        .log(
-            Level.INFO,
-            message,
-            fb -> {
-              return fb.only(fb.person("person", person));
-            },
-            fieldBuilder);
+        .log(Level.INFO, message, fb -> fb.person("person", person), fieldBuilder);
   }
 
   @Override

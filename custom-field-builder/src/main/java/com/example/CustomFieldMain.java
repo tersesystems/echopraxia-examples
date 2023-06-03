@@ -26,24 +26,19 @@ public class CustomFieldMain {
         "Prints if person's mother age is more than 30",
         fb -> fb.person("person", abe));
 
+    // [[yodelling], [keyboards], [iceskating]]
+    // Note we get the entire array back here for every match
     Condition interestsCondition =
-        (level, context) -> {
-          // [[yodelling], [keyboards], [iceskating]]
-          // Note we get the entire array back here for every match
-          List<?> list = context.findList("$..interests");
-          return list.stream()
-              .anyMatch(
-                  i -> {
-                    if (i instanceof List) {
-                      return ((List<?>) i).get(0).equals("iceskating");
-                    }
-                    return false;
-                  });
-        };
+        (level, context) ->
+            context.findList("$..interests").stream()
+                .anyMatch(
+                    i -> (i instanceof List) ? ((List<?>) i).get(0).equals("iceskating") : false);
 
+    // log with a field builder
     logger.info(
         interestsCondition, "Prints if someone likes iceskating", fb -> fb.person("person", abe));
 
+    // Can log directly with a PersonLogger
     logger.info("Custom logging message with person {}!", abe);
   }
 }
