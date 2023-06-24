@@ -2,6 +2,7 @@ package com.diffbuilder;
 
 import com.tersesystems.echopraxia.api.*;
 import com.tersesystems.echopraxia.diff.DiffFieldBuilder;
+import com.tersesystems.echopraxia.spi.DefaultField;
 
 public class PersonFieldBuilder implements FieldBuilder, DiffFieldBuilder {
 
@@ -9,8 +10,8 @@ public class PersonFieldBuilder implements FieldBuilder, DiffFieldBuilder {
 
   public static final PersonFieldBuilder instance = new PersonFieldBuilder();
 
-  public FieldBuilderResult diff(String name, Person before, Person after) {
-    return diff(name, personValue(before), personValue(after));
+  public PresentationField diff(String name, Person before, Person after) {
+    return diff(name, personValue(before), personValue(after), PresentationField.class);
   }
 
   public Value<?> personValue(Person p) {

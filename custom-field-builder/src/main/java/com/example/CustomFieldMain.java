@@ -1,12 +1,13 @@
 package com.example;
 
+import com.tersesystems.echopraxia.Logger;
+import com.tersesystems.echopraxia.LoggerFactory;
 import com.tersesystems.echopraxia.api.*;
 import java.util.List;
 
 public class CustomFieldMain {
 
-  // Use a logger with a custom field builder that can log a Person object.
-  private static final PersonLogger logger = PersonLoggerFactory.getLogger();
+  private static final Logger<PersonFieldBuilder> logger = LoggerFactory.getLogger(PersonFieldBuilder.instance());
 
   public static void main(String[] args) {
     Person abe = new Person("Abe", 1, "yodelling");
@@ -37,8 +38,5 @@ public class CustomFieldMain {
     // log with a field builder
     logger.info(
         interestsCondition, "Prints if someone likes iceskating", fb -> fb.person("person", abe));
-
-    // Can log directly with a PersonLogger
-    logger.info("Custom logging message with person {}!", abe);
   }
 }

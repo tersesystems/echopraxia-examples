@@ -1,12 +1,12 @@
 # Custom Field Builder
 
-This project demonstrates the use of custom field builders and loggers.  You can easily set up a logger that can render complex domain objects and have them rendered in structured logging:
+This project demonstrates the use of custom field builders.  You can easily set up a logger that can render complex domain objects and have them rendered in structured logging:
 
 ```java
 public class CustomFieldMain {
 
   // Use a logger with a custom field builder that can log a Person object.
-  private static final PersonLogger logger = PersonLoggerFactory.getLogger();
+  private static final Logger<PersonFieldBuilder> logger = LoggerFactory.getLogger(CustomFieldMain.class, PersonFieldBuilder.instance())
 
   public static void main(String[] args) {
     Person abe = new Person("Abe", 1, "yodelling");
@@ -37,41 +37,6 @@ public class CustomFieldMain {
     // log with a field builder i.e. Logger<PersonFieldBuilder>
     logger.info(
         interestsCondition, "Prints if someone likes iceskating", fb -> fb.person("person", abe));
-
-    // Can log directly with a PersonLogger
-    logger.info("Custom logging message with person {}!", abe);
-  }
-}
-```
-
-Defined using a `PersonLogger`:
-
-```java
-public class PersonLogger extends AbstractLoggerSupport<PersonLogger, PersonFieldBuilder>
-    implements DefaultLoggerMethods<PersonFieldBuilder> {
-  private static final String FQCN = PersonLogger.class.getName();
-
-  protected PersonLogger(
-      @NotNull CoreLogger core, @NotNull PersonFieldBuilder fieldBuilder, Class<?> selfType) {
-    super(core, fieldBuilder, selfType);
-  }
-
-  public void info(@Nullable String message, Person person) {
-    // when using custom methods, you must specify the caller as the class it's defined in.
-    this.core()
-        .withFQCN(FQCN)
-        .log(Level.INFO, message, fb -> fb.person("person", person), fieldBuilder);
-  }
-
-  @Override
-  protected @NotNull PersonLogger newLogger(CoreLogger core) {
-    return new PersonLogger(core, fieldBuilder(), PersonLogger.class);
-  }
-
-  @Override
-  protected @NotNull PersonLogger neverLogger() {
-    return new PersonLogger(
-        core.withCondition(Condition.never()), fieldBuilder(), PersonLogger.class);
   }
 }
 ```
@@ -80,6 +45,11 @@ This is fixed to a `PersonFieldBuilder`:
 
 ```java
 public class PersonFieldBuilder implements Field.Builder {
+
+  static PersonFieldBuilder instance() {
+    return new PersonFieldBuilder() {};
+  }
+
   // Renders a `Person` as an object field.
   public Field person(String fieldName, Person p) {
     return keyValue(fieldName, personValue(p));
@@ -94,34 +64,6 @@ public class PersonFieldBuilder implements Field.Builder {
     Field mother = keyValue("mother", Value.optional(p.getMother().map(this::personValue)));
     Field interests = array("interests", p.interests());
     return Value.object(name, age, father, mother, interests);
-  }
-}
-```
-
-and the logger factory is likewise simple to put together:
-
-```java
-public class PersonLoggerFactory {
-
-  private static final PersonFieldBuilder myFieldBuilder = new PersonFieldBuilder();
-
-  // the class containing the error/warn/info/debug/trace methods
-  private static final String FQCN = DefaultLoggerMethods.class.getName();
-
-  public static PersonLogger getLogger(Class<?> clazz) {
-    return getLogger(CoreLoggerFactory.getLogger(FQCN, clazz.getName()));
-  }
-
-  public static PersonLogger getLogger(String name) {
-    return getLogger(CoreLoggerFactory.getLogger(FQCN, name));
-  }
-
-  public static PersonLogger getLogger() {
-    return getLogger(CoreLoggerFactory.getLogger(FQCN, Caller.resolveClassName()));
-  }
-
-  public static PersonLogger getLogger(@NotNull CoreLogger core) {
-    return new PersonLogger(core, myFieldBuilder, PersonLogger.class);
   }
 }
 ```
