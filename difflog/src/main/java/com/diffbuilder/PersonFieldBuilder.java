@@ -2,7 +2,6 @@ package com.diffbuilder;
 
 import com.tersesystems.echopraxia.api.*;
 import com.tersesystems.echopraxia.diff.DiffFieldBuilder;
-import com.tersesystems.echopraxia.spi.DefaultField;
 
 public class PersonFieldBuilder implements FieldBuilder, DiffFieldBuilder {
 

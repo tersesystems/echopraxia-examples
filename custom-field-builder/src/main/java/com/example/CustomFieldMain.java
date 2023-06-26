@@ -7,7 +7,8 @@ import java.util.List;
 
 public class CustomFieldMain {
 
-  private static final Logger<PersonFieldBuilder> logger = LoggerFactory.getLogger(PersonFieldBuilder.instance());
+  private static final Logger<PersonFieldBuilder> logger =
+      LoggerFactory.getLogger(PersonFieldBuilder.instance());
 
   public static void main(String[] args) {
     Person abe = new Person("Abe", 1, "yodelling");

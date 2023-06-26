@@ -1,9 +1,7 @@
 package com.example;
 
-import com.tersesystems.echopraxia.api.Condition;
-import com.tersesystems.echopraxia.api.CoreLogger;
-import com.tersesystems.echopraxia.api.CoreLoggerFilter;
-import com.tersesystems.echopraxia.api.Level;
+import com.tersesystems.echopraxia.api.*;
+import com.tersesystems.echopraxia.spi.*;
 import com.tersesystems.jmxbuilder.DynamicBean;
 import java.lang.management.ManagementFactory;
 import java.util.concurrent.ConcurrentHashMap;
