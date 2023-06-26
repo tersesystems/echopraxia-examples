@@ -1,6 +1,7 @@
 package com.example;
 
 import com.tersesystems.echopraxia.api.Condition;
+import com.tersesystems.echopraxia.api.PresentationFieldBuilder;
 import com.tersesystems.echopraxia.async.AsyncLogger;
 import com.tersesystems.echopraxia.async.AsyncLoggerFactory;
 import java.util.concurrent.ExecutorService;
@@ -31,7 +32,7 @@ public class AsyncMain {
         }
       };
 
-  private static final AsyncLogger<?> logger =
+  private static final AsyncLogger<PresentationFieldBuilder> logger =
       AsyncLoggerFactory.getLogger()
           .withExecutor(loggingExecutor)
           .withCondition(expensiveCondition);
