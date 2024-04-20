@@ -4,7 +4,7 @@ mainClassName  = "com.example.CustomFieldMain"
 dependencies {
     implementation "com.tersesystems.echopraxia:logger:$version"
     implementation "com.tersesystems.echopraxia:logstash:$version"
-    implementation "ch.qos.logback:logback-classic:1.4.6"
+    implementation "ch.qos.logback:logback-classic:1.5.3"
     implementation 'net.logstash.logback:logstash-logback-encoder:7.4'
 }
 
