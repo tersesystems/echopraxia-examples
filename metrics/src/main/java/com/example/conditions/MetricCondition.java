@@ -3,8 +3,11 @@ package com.example.conditions;
 import com.codahale.metrics.Metric;
 import com.codahale.metrics.MetricRegistry;
 import com.codahale.metrics.SharedMetricRegistries;
-import com.tersesystems.echopraxia.api.*;
-import com.tersesystems.echopraxia.spi.*;
+import echopraxia.api.*;
+import echopraxia.logging.api.Condition;
+import echopraxia.logging.api.Level;
+import echopraxia.logging.api.LoggingContext;
+import echopraxia.logging.spi.*;
 import java.util.function.Function;
 
 public abstract class MetricCondition<E extends Metric> implements Condition {

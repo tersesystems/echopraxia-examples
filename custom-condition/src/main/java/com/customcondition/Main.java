@@ -1,8 +1,10 @@
 package com.customcondition;
 
-import com.tersesystems.echopraxia.Logger;
-import com.tersesystems.echopraxia.LoggerFactory;
-import com.tersesystems.echopraxia.api.*;
+import echopraxia.logger.Logger;
+import echopraxia.logger.LoggerFactory;
+import echopraxia.api.*;
+import echopraxia.logging.api.Condition;
+
 import java.util.Objects;
 import java.util.function.Predicate;
 

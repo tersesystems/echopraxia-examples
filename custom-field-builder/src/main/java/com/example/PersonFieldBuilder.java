@@ -1,6 +1,6 @@
 package com.example;
 
-import com.tersesystems.echopraxia.api.*;
+import echopraxia.api.*;
 import java.util.Optional;
 
 /**

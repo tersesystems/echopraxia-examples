@@ -1,7 +1,7 @@
 package com.example;
 
-import com.tersesystems.echopraxia.api.*;
-import com.tersesystems.echopraxia.spi.*;
+import echopraxia.api.*;
+import echopraxia.logging.api.*;
 import dev.failsafe.CircuitBreaker;
 import java.time.Duration;
 import java.util.List;

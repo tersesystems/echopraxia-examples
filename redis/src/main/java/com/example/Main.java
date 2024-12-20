@@ -1,6 +1,6 @@
 package com.example;
 
-import com.tersesystems.echopraxia.LoggerFactory;
+import echopraxia.logger.LoggerFactory;
 
 public class Main {
 

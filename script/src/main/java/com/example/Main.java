@@ -1,18 +1,18 @@
 package com.example;
 
-import com.tersesystems.echopraxia.Logger;
-import com.tersesystems.echopraxia.LoggerFactory;
-import com.tersesystems.echopraxia.api.Condition;
-import com.tersesystems.echopraxia.api.Field;
-import com.tersesystems.echopraxia.api.PresentationFieldBuilder;
-import com.tersesystems.echopraxia.scripting.ScriptCondition;
-import com.tersesystems.echopraxia.scripting.ScriptHandle;
-import com.tersesystems.echopraxia.scripting.ScriptWatchService;
+import echopraxia.api.FieldBuilder;
+import echopraxia.logger.Logger;
+import echopraxia.logger.LoggerFactory;
+import echopraxia.api.Field;
+import echopraxia.logging.api.Condition;
+import echopraxia.scripting.ScriptCondition;
+import echopraxia.scripting.ScriptHandle;
+import echopraxia.scripting.ScriptWatchService;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
 public class Main {
-  private static final Logger<PresentationFieldBuilder> logger = LoggerFactory.getLogger();
+  private static final Logger<FieldBuilder> logger = LoggerFactory.getLogger();
   private final ScriptWatchService sws;
   private final Condition errorCondition;
   private final Condition warnCondition;

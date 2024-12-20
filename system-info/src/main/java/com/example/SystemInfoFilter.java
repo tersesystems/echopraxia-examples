@@ -1,7 +1,7 @@
 package com.example;
 
-import com.tersesystems.echopraxia.api.*;
-import com.tersesystems.echopraxia.spi.*;
+import echopraxia.api.*;
+import echopraxia.logging.spi.*;
 import oshi.SystemInfo;
 import oshi.hardware.CentralProcessor;
 import oshi.hardware.GlobalMemory;

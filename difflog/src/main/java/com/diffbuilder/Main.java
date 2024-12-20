@@ -1,7 +1,7 @@
 package com.diffbuilder;
 
-import com.tersesystems.echopraxia.Logger;
-import com.tersesystems.echopraxia.LoggerFactory;
+import echopraxia.logger.Logger;
+import echopraxia.logger.LoggerFactory;
 
 public class Main {
 

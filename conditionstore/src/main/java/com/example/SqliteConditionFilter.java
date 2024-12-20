@@ -1,8 +1,9 @@
 package com.example;
 
-import com.tersesystems.echopraxia.api.*;
-import com.tersesystems.echopraxia.scripting.ScriptException;
-import com.tersesystems.echopraxia.spi.*;
+import echopraxia.api.*;
+import echopraxia.logging.api.Condition;
+import echopraxia.scripting.ScriptException;
+import echopraxia.logging.spi.*;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 

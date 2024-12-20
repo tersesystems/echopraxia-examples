@@ -3,8 +3,8 @@ package com.example;
 import com.codahale.metrics.Meter;
 import com.codahale.metrics.MetricRegistry;
 import com.codahale.metrics.SharedMetricRegistries;
-import com.tersesystems.echopraxia.Logger;
-import com.tersesystems.echopraxia.LoggerFactory;
+import echopraxia.logger.Logger;
+import echopraxia.logger.LoggerFactory;
 
 public class Main {
 

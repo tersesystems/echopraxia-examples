@@ -1,9 +1,10 @@
 package com.example;
 
-import com.tersesystems.echopraxia.api.Condition;
-import com.tersesystems.echopraxia.api.PresentationFieldBuilder;
-import com.tersesystems.echopraxia.async.AsyncLogger;
-import com.tersesystems.echopraxia.async.AsyncLoggerFactory;
+import echopraxia.logging.api.Condition;
+import echopraxia.api.FieldBuilder;
+import echopraxia.async.AsyncLogger;
+import static echopraxia.jsonpath.JsonPathCondition.*;
+import echopraxia.async.AsyncLoggerFactory;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -32,7 +33,7 @@ public class AsyncMain {
         }
       };
 
-  private static final AsyncLogger<PresentationFieldBuilder> logger =
+  private static final AsyncLogger<FieldBuilder> logger =
       AsyncLoggerFactory.getLogger()
           .withExecutor(loggingExecutor)
           .withCondition(expensiveCondition);
@@ -45,7 +46,7 @@ public class AsyncMain {
       org.slf4j.MDC.put("contextKey", "" + i);
 
       Condition c =
-          (l, ctx) -> ctx.findString("$.contextKey").filter(key -> key.equals("5")).isPresent();
+          pathCondition((l, ctx) -> ctx.findString("$.contextKey").filter(key -> key.equals("5")).isPresent());
       // and have it available as fields when you use `withThreadContext()`
       logger.withThreadContext().info(c, "Message prints out on contextKey=5");
 
