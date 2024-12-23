@@ -1,8 +1,8 @@
 package com.example;
 
+import dev.failsafe.CircuitBreaker;
 import echopraxia.api.*;
 import echopraxia.logging.api.*;
-import dev.failsafe.CircuitBreaker;
 import java.time.Duration;
 import java.util.List;
 import java.util.Optional;

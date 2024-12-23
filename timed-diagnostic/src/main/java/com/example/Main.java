@@ -1,9 +1,9 @@
 package com.example;
 
+import dev.failsafe.CircuitBreaker;
+import echopraxia.logging.api.Level;
 import echopraxia.simple.Logger;
 import echopraxia.simple.LoggerFactory;
-import echopraxia.logging.api.Level;
-import dev.failsafe.CircuitBreaker;
 import java.time.Duration;
 import java.time.LocalTime;
 

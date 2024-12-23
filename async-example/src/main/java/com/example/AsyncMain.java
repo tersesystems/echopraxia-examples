@@ -1,11 +1,11 @@
 package com.example;
 
-import echopraxia.logging.api.Condition;
+import static echopraxia.logging.api.JsonPathCondition.*;
+
 import echopraxia.api.FieldBuilder;
 import echopraxia.async.AsyncLogger;
 import echopraxia.async.AsyncLoggerFactory;
-import static echopraxia.logging.api.JsonPathCondition.*;
-
+import echopraxia.logging.api.Condition;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -47,7 +47,9 @@ public class AsyncMain {
       org.slf4j.MDC.put("contextKey", "" + i);
 
       Condition c =
-          pathCondition((l, ctx) -> ctx.findString("$.contextKey").filter(key -> key.equals("5")).isPresent());
+          pathCondition(
+              (l, ctx) ->
+                  ctx.findString("$.contextKey").filter(key -> key.equals("5")).isPresent());
       // and have it available as fields when you use `withThreadContext()`
       logger.withThreadContext().info(c, "Message prints out on contextKey=5");
 

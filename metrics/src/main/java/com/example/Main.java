@@ -10,8 +10,7 @@ public class Main {
 
   private static final MetricRegistry metrics = SharedMetricRegistries.setDefault("default");
 
-  private static final Logger metricsLogger =
-      LoggerFactory.getLogger("com.example.Main.Metrics");
+  private static final Logger metricsLogger = LoggerFactory.getLogger("com.example.Main.Metrics");
 
   public static void main(String[] args) {
     final Meter requests = metrics.meter("requests");

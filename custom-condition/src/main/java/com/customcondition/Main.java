@@ -1,13 +1,12 @@
 package com.customcondition;
 
+import static echopraxia.simple.LoggerFactory.*;
+
 import echopraxia.api.*;
 import echopraxia.logging.api.Condition;
 import echopraxia.simple.Logger;
-
 import java.util.Objects;
 import java.util.function.Predicate;
-
-import static echopraxia.simple.LoggerFactory.*;
 
 public class Main {
 
@@ -32,8 +31,7 @@ public class Main {
 
   static UserFieldBuilder fb = new UserFieldBuilder();
 
-  static Logger logger =
-      getLogger().withCondition(loginCondition);
+  static Logger logger = getLogger().withCondition(loginCondition);
 
   public static void main(String[] args) {
     User steve = new User("steve", 16);

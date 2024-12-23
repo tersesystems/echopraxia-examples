@@ -2,8 +2,8 @@ package com.example;
 
 import echopraxia.api.*;
 import echopraxia.logging.api.Condition;
-import echopraxia.scripting.ScriptException;
 import echopraxia.logging.spi.*;
+import echopraxia.scripting.ScriptException;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
