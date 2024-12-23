@@ -16,9 +16,7 @@ public class Main {
           Level.TRACE);
 
   private static final Logger logger =
-      LoggerFactory.getLogger()
-          .withCondition(alerts.levelCondition())
-          .withCondition(alerts.alertCondition());
+      LoggerFactory.getLogger().withCondition(alerts.levelCondition().and(alerts.alertCondition()));
 
   public static void main(String[] args) throws InterruptedException {
     while (true) {

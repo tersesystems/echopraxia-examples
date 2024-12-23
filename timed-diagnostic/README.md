@@ -5,19 +5,19 @@ This project demonstrates the use of timed dagnostic alerts, using a circuit bre
 ```java
 public class Main {
 
-  private static final DiagnosticAlertManager alerts = new DiagnosticAlertManager(CircuitBreaker.builder()
-          .withFailureThreshold(1)
-          .withDelay(Duration.ofSeconds(5))
-          .build(), Level.INFO, Level.TRACE);
+  private static final DiagnosticAlertManager alerts =
+      new DiagnosticAlertManager(
+          CircuitBreaker.builder().withFailureThreshold(1).withDelay(Duration.ofSeconds(5)).build(),
+          Level.INFO,
+          Level.TRACE);
 
-  private static final Logger<?> logger = LoggerFactory.getLogger()
-          .withCondition(alerts.levelCondition())
-          .withCondition(alerts.alertCondition());
+  private static final Logger logger =
+      LoggerFactory.getLogger().withCondition(alerts.levelCondition().and(alerts.alertCondition()));
 
   public static void main(String[] args) throws InterruptedException {
     while (true) {
       try {
-        logger.info("logging at INFO");   // enabled by the default threshold level
+        logger.info("logging at INFO"); // enabled by the filter's threshold level
         logger.debug("logging at DEBUG"); // enabled when on diagnostic alert
         logger.trace("logging at TRACE"); // can never be enabled, logback.xml takes priority
         LocalTime now = LocalTime.now();

@@ -38,7 +38,6 @@ public class CustomFieldMain {
                 context.findList("$..interests").stream()
                     .anyMatch(i -> i instanceof List && ((List<?>) i).get(0).equals("iceskating")));
 
-    // log with a field builder
     logger
         .withCondition(interestsCondition)
         .info("Prints if someone likes iceskating", fb.person("person", abe));
