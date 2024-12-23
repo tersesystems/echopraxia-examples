@@ -34,12 +34,8 @@ subprojects { subproj ->
     }
 
     dependencies {
-        implementation "ch.qos.logback:logback-classic:1.5.3"
+        implementation "ch.qos.logback:logback-classic:1.5.15"
         implementation 'net.logstash.logback:logstash-logback-encoder:8.0'
-
-        // logstash-logback-encoder 7.3 uses logback 1.2
-        //implementation "ch.qos.logback:logback-classic:1.2.12"
-        //implementation 'net.logstash.logback:logstash-logback-encoder:7.3'
 
         // Use JUnit Jupiter for testing.
         testImplementation 'org.junit.jupiter:junit-jupiter:5.8.2'
