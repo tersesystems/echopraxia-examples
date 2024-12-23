@@ -3,14 +3,14 @@ package com.example;
 import com.codahale.metrics.Meter;
 import com.codahale.metrics.MetricRegistry;
 import com.codahale.metrics.SharedMetricRegistries;
-import echopraxia.logger.Logger;
-import echopraxia.logger.LoggerFactory;
+import echopraxia.simple.Logger;
+import echopraxia.simple.LoggerFactory;
 
 public class Main {
 
   private static final MetricRegistry metrics = SharedMetricRegistries.setDefault("default");
 
-  private static final Logger<?> metricsLogger =
+  private static final Logger metricsLogger =
       LoggerFactory.getLogger("com.example.Main.Metrics");
 
   public static void main(String[] args) {

@@ -1,6 +1,6 @@
 
 dependencies {
-    implementation "com.tersesystems.echopraxia:logger:$version"
+    implementation "com.tersesystems.echopraxia:simple:$version"
     implementation "com.tersesystems.echopraxia:logstash:$version"
 
     // https://mvnrepository.com/artifact/com.tersesystems.jmxbuilder/jmxbuilder

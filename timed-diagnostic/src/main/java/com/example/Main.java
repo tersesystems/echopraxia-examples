@@ -1,7 +1,7 @@
 package com.example;
 
-import echopraxia.logger.Logger;
-import echopraxia.logger.LoggerFactory;
+import echopraxia.simple.Logger;
+import echopraxia.simple.LoggerFactory;
 import echopraxia.logging.api.Level;
 import dev.failsafe.CircuitBreaker;
 import java.time.Duration;
@@ -15,7 +15,7 @@ public class Main {
           Level.INFO,
           Level.TRACE);
 
-  private static final Logger<?> logger =
+  private static final Logger logger =
       LoggerFactory.getLogger()
           .withCondition(alerts.levelCondition())
           .withCondition(alerts.alertCondition());

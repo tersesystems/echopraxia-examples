@@ -3,8 +3,9 @@ package com.example;
 import echopraxia.logging.api.Condition;
 import echopraxia.api.FieldBuilder;
 import echopraxia.async.AsyncLogger;
-import static echopraxia.jsonpath.JsonPathCondition.*;
 import echopraxia.async.AsyncLoggerFactory;
+import static echopraxia.logging.api.JsonPathCondition.*;
+
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
