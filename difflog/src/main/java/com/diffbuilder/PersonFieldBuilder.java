@@ -1,9 +1,8 @@
 package com.diffbuilder;
 
 import echopraxia.api.*;
-import echopraxia.diff.DiffFieldBuilder;
 
-public class PersonFieldBuilder implements FieldBuilder, DiffFieldBuilder {
+public class PersonFieldBuilder implements DiffFieldBuilder {
 
   private PersonFieldBuilder() {}
 

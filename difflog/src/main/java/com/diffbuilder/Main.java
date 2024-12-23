@@ -1,9 +1,11 @@
 package com.diffbuilder;
 
+import echopraxia.simple.LoggerFactory;
+
 public class Main {
 
   public static void main(String[] args) {
-    var logger = echopraxia.simple.LoggerFactory.getLogger();
+    var logger = LoggerFactory.getLogger();
     var fb = PersonFieldBuilder.instance;
 
     var before = new Person("Eloise", 1);

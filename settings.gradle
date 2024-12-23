@@ -3,7 +3,6 @@ rootProject.name = 'echopraxia-examples'
 include('conditionstore')
 include('system-info')
 include('metrics')
-include('async-example')
 include('difflog')
 include('timed-diagnostic')
 include('custom-field-builder')

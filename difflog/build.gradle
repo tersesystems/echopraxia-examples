@@ -5,8 +5,11 @@ plugins {
 mainClassName  = "com.diffbuilder.Main"
 
 dependencies {
-    implementation "com.tersesystems.echopraxia:diff:$version"
+    implementation "com.tersesystems.echopraxia:jackson:$version"
     implementation "com.tersesystems.echopraxia:simple:$version"
     implementation "com.tersesystems.echopraxia:logstash:$version"
+
+    implementation "com.flipkart.zjsonpatch:zjsonpatch:0.4.14"
+
 }
 
