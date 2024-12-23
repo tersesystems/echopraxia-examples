@@ -1,12 +1,12 @@
 package com.diffbuilder;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.flipkart.zjsonpatch.JsonDiff;
 import echopraxia.api.Field;
 import echopraxia.api.FieldBuilder;
 import echopraxia.api.Value;
 import echopraxia.jackson.ObjectMapperProvider;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.flipkart.zjsonpatch.JsonDiff;
 
 /**
  * This field builder uses the stable structured representation of objects to diff them against each
