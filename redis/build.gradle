@@ -5,15 +5,13 @@
 mainClassName  = "com.example.Main"
 
 dependencies {
-    implementation "com.tersesystems.echopraxia:logger:$version"
+    implementation "com.tersesystems.echopraxia:simple:$version"
     implementation "com.tersesystems.echopraxia:logstash:$version"
     implementation "com.tersesystems.echopraxia:scripting:$version"
 
-    implementation 'org.slf4j:slf4j-api:1.7.36'
-    implementation 'org.slf4j:jul-to-slf4j:1.7.36'
     implementation 'org.codehaus.janino:janino:3.1.7'
-    implementation 'ch.qos.logback:logback-classic:1.2.11'
-    implementation 'net.logstash.logback:logstash-logback-encoder:7.1.1'
+    implementation 'ch.qos.logback:logback-classic:1.5.15'
+    implementation 'net.logstash.logback:logstash-logback-encoder:8.0'
 
     // https://mvnrepository.com/artifact/redis.clients/jedis
     implementation 'redis.clients:jedis:4.1.1'

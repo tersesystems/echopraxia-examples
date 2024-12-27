@@ -8,11 +8,11 @@ What this means in practice is that you can have a logger operate at an INFO lev
 ```
 package com.example;
 
-import com.tersesystems.echopraxia.Logger;
-import com.tersesystems.echopraxia.LoggerFactory;
+import echopraxia.simple.Logger;
+import echopraxia.simple.LoggerFactory;
 
 public class App {
-  private static final Logger<?> logger = LoggerFactory.getLogger();
+  private static final Logger logger = LoggerFactory.getLogger();
 
   public static void main(String[] args) throws InterruptedException {
     while (true) {

@@ -1,25 +1,25 @@
 package com.example;
 
-import com.tersesystems.echopraxia.Logger;
-import com.tersesystems.echopraxia.LoggerFactory;
-import com.tersesystems.echopraxia.api.Condition;
-import com.tersesystems.echopraxia.api.Field;
-import com.tersesystems.echopraxia.api.PresentationFieldBuilder;
-import com.tersesystems.echopraxia.scripting.ScriptCondition;
-import com.tersesystems.echopraxia.scripting.ScriptHandle;
-import com.tersesystems.echopraxia.scripting.ScriptWatchService;
+import echopraxia.api.FieldBuilder;
+import echopraxia.api.FieldBuilderResult;
+import echopraxia.logging.api.Condition;
+import echopraxia.scripting.ScriptCondition;
+import echopraxia.scripting.ScriptHandle;
+import echopraxia.scripting.ScriptWatchService;
+import echopraxia.simple.Logger;
+import echopraxia.simple.LoggerFactory;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
 public class Main {
-  private static final Logger<PresentationFieldBuilder> logger = LoggerFactory.getLogger();
+  private static final Logger logger = LoggerFactory.getLogger();
   private final ScriptWatchService sws;
   private final Condition errorCondition;
   private final Condition warnCondition;
   private final Condition infoCondition;
 
   public static void main(String[] args) throws InterruptedException {
-    Path dir = Paths.get("scripting").toAbsolutePath();
+    Path dir = Paths.get("script").toAbsolutePath();
     Main main = new Main(dir);
     main.doStuff();
   }
@@ -44,26 +44,30 @@ public class Main {
   }
 
   public void warn() {
-    logger.warn(
-        warnCondition,
-        "warning {}",
-        fb -> {
-          Field name = fb.string("name", "Will");
-          Field age = fb.number("age", 23);
-          Field interests = fb.array("interests", "reading", "writing", "rithmatic");
-          return fb.object("person", name, age, interests);
-        });
+    logger
+        .withCondition(warnCondition)
+        .warn(
+            "warning {}",
+            FieldBuilderResult.flatten(
+                () -> {
+                  var fb = FieldBuilder.instance();
+
+                  var name = fb.string("name", "Will");
+                  var age = fb.number("age", 23);
+                  var interests = fb.array("interests", "reading", "writing", "rithmatic");
+                  return fb.object("person", name, age, interests);
+                }));
   }
 
   public void info() {
-    logger.info(
-        infoCondition,
-        "logging {} {}",
-        fb -> fb.list(fb.string("name", "Eloise"), fb.number("age", 1)));
+    var fb = FieldBuilder.instance();
+    logger
+        .withCondition(infoCondition)
+        .info("logging {} {}", fb.list(fb.string("name", "Eloise"), fb.number("age", 1)));
   }
 
   public void error() {
-    logger.error(errorCondition, "Some error", new RuntimeException("Some Message"));
+    logger.withCondition(errorCondition).error("Some error", new RuntimeException("Some Message"));
   }
 
   private Condition createCondition(Path file) {

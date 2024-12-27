@@ -1,16 +1,5 @@
 <configuration>
 
-    <!-- loosen the rule on appender refs so appenders can reference them -->
-    <newRule pattern="*/appender/appender-ref"
-             actionClass="ch.qos.logback.core.joran.action.AppenderRefAction"/>
-
-    <property scope="context" name="echopraxia.async.caller" value="true"/>
-
-    <!-- give the async appenders time to shutdown -->
-    <shutdownHook class="ch.qos.logback.core.hook.DelayingShutdownHook">
-        <delay>100</delay>
-    </shutdownHook>
-
     <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
         <encoder class="net.logstash.logback.encoder.LoggingEventCompositeJsonEncoder">
                 <jsonGeneratorDecorator class="net.logstash.logback.decorate.PrettyPrintingJsonGeneratorDecorator"/>
@@ -23,17 +12,8 @@
                     <loggerName/>
                     <threadName/>
                     <logLevel/>
-                    <!--
-                      caller data requires that both a property needs to be set:
-
-                      <property scope="context" name="echopraxia.async.caller" value="true"/>
-                      AND
-                      the LogstashCallerDataFilter is set on the appender calling for logger data
-                    -->
-                    <callerData/>
                     <logLevelValue/><!-- numeric value is useful for filtering >= -->
                     <stackHash/>
-                    <!-- <mdc/> --> <!-- not showing mdc as we want to demo withContext() -->
                     <logstashMarkers/>
                     <arguments/>
                     <stackTrace/>
@@ -47,9 +27,7 @@
     <logger name="example" level="DEBUG"/>
 
     <root level="INFO">
-        <appender class="com.tersesystems.echopraxia.logstash.CallerDataAppender">
-            <appender-ref ref="CONSOLE"/>
-        </appender>
+        <appender-ref ref="CONSOLE"/>
     </root>
 
 </configuration>

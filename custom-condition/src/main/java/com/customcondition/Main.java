@@ -1,8 +1,10 @@
 package com.customcondition;
 
-import com.tersesystems.echopraxia.Logger;
-import com.tersesystems.echopraxia.LoggerFactory;
-import com.tersesystems.echopraxia.api.*;
+import static echopraxia.simple.LoggerFactory.*;
+
+import echopraxia.api.*;
+import echopraxia.logging.api.Condition;
+import echopraxia.simple.Logger;
 import java.util.Objects;
 import java.util.function.Predicate;
 
@@ -27,17 +29,16 @@ public class Main {
         .anyMatch(predicate);
   }
 
-  static UserFieldBuilder userBuilder = new UserFieldBuilder();
+  static UserFieldBuilder fb = new UserFieldBuilder();
 
-  static Logger<UserFieldBuilder> logger =
-      LoggerFactory.getLogger().withFieldBuilder(userBuilder).withCondition(loginCondition);
+  static Logger logger = getLogger().withCondition(loginCondition);
 
   public static void main(String[] args) {
     User steve = new User("steve", 16);
     User will = new User("will", 19);
 
-    logger.info("Do not if user is steve", fb -> fb.user("login", steve));
-    logger.info("Log if user is will", fb -> fb.user("login", will));
+    logger.info("Do not if user is steve", fb.user("login", steve));
+    logger.info("Log if user is will", fb.user("login", will));
   }
 
   static class User {

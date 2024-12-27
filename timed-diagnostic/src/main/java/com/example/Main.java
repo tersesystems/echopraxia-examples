@@ -1,9 +1,9 @@
 package com.example;
 
-import com.tersesystems.echopraxia.Logger;
-import com.tersesystems.echopraxia.LoggerFactory;
-import com.tersesystems.echopraxia.api.Level;
 import dev.failsafe.CircuitBreaker;
+import echopraxia.logging.api.Level;
+import echopraxia.simple.Logger;
+import echopraxia.simple.LoggerFactory;
 import java.time.Duration;
 import java.time.LocalTime;
 
@@ -15,10 +15,8 @@ public class Main {
           Level.INFO,
           Level.TRACE);
 
-  private static final Logger<?> logger =
-      LoggerFactory.getLogger()
-          .withCondition(alerts.levelCondition())
-          .withCondition(alerts.alertCondition());
+  private static final Logger logger =
+      LoggerFactory.getLogger().withCondition(alerts.levelCondition().and(alerts.alertCondition()));
 
   public static void main(String[] args) throws InterruptedException {
     while (true) {
