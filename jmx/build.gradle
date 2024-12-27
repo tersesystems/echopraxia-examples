@@ -1,8 +1,13 @@
+application {
+    mainClass = "com.example.Main"
+    applicationDefaultJvmArgs += " --add-opens=java.management/com.sun.jmx.mbeanserver=ALL-UNNAMED"
+    applicationDefaultJvmArgs += " --add-exports=java.management/com.sun.jmx.mbeanserver=ALL-UNNAMED"
+}
 
 dependencies {
     implementation "com.tersesystems.echopraxia:simple:$version"
     implementation "com.tersesystems.echopraxia:logstash:$version"
 
     // https://mvnrepository.com/artifact/com.tersesystems.jmxbuilder/jmxbuilder
-    implementation 'com.tersesystems.jmxbuilder:jmxbuilder:0.0.5'
+    implementation 'com.tersesystems.jmxbuilder:jmxbuilder:1.0.0'
 }

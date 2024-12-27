@@ -13,6 +13,7 @@ public class Main {
     while (true) {
       logger.info("This always logs");
       logger.debug("This only logs if testFlag is enabled");
+      Thread.sleep(1000L);
     }
   }
 }
