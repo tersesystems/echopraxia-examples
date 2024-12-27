@@ -2,14 +2,6 @@
 
 This project shows things you can do with [Echopraxia](https://github.com/tersesystems/echopraxia), an application logging framework with structured logging, conditions, context, and filters.  Echopraxia has Log4J2 and Logback implementations and is easy to extend with your own domain loggers and structure.
 
-## Async Logging
-
-Scenario: you want to log conditionally, but you don't want to incur the costs of evaluating the condition in your rendering thread.
-
-Solution: Use asynchronous logging, which will do all logging in another thread.
-
-Demonstrates [AsyncLogger](https://github.com/tersesystems/echopraxia#asynchronous-logging) with correct caller info.  See [README](async-example/README.md).
-
 ## Diffing Objects
 
 Scenario: you have a large object with lots of state, and you want to be able to "diff" the object so you can see only what changed in it.
