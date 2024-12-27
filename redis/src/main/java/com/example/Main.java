@@ -1,12 +1,13 @@
 package com.example;
 
+import echopraxia.api.FieldBuilder;
 import echopraxia.simple.LoggerFactory;
 
 public class Main {
 
   public static void main(String[] args) throws InterruptedException {
     var logger = LoggerFactory.getLogger(Main.class);
-    var fb = logger.fieldBuilder();
+    var fb = FieldBuilder.instance();
 
     while (true) {
       logger.error("logging an error");
