@@ -1,5 +1,6 @@
 package com.example;
 
+import echopraxia.api.FieldBuilder;
 import echopraxia.api.FieldBuilderResult;
 import echopraxia.logging.api.Condition;
 import echopraxia.scripting.ScriptCondition;
@@ -47,9 +48,10 @@ public class Main {
         .withCondition(warnCondition)
         .warn(
             "warning {}",
-            FieldBuilderResult.apply(
+            FieldBuilderResult.flatten(
                 () -> {
-                  var fb = logger.fieldBuilder();
+                  var fb = FieldBuilder.instance();
+
                   var name = fb.string("name", "Will");
                   var age = fb.number("age", 23);
                   var interests = fb.array("interests", "reading", "writing", "rithmatic");
@@ -58,7 +60,7 @@ public class Main {
   }
 
   public void info() {
-    var fb = logger.fieldBuilder();
+    var fb = FieldBuilder.instance();
     logger
         .withCondition(infoCondition)
         .info("logging {} {}", fb.list(fb.string("name", "Eloise"), fb.number("age", 1)));
